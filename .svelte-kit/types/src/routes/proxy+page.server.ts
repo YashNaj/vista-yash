@@ -52,7 +52,6 @@ export const actions = {
   deleteUsers: async ({ request }: import('./$types').RequestEvent) => {
     const formData = await request.formData();
     const ids = formData.get("ids")?.toString().split(",").map(Number);
-    console.log(ids);
     if (!ids || !ids.length) {
       return fail(400, {
         success: false,

@@ -5,8 +5,6 @@ const prisma = new PrismaClient();
 
 async function main() {
   console.log(`Start seeding ...`);
-
-  // Create 300 users
   for (let i = 0; i < 300; i++) {
     const user = await prisma.user.create({
       data: {

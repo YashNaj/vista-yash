@@ -122,9 +122,7 @@
         showDeleteConfirm = false;
         await invalidateAll();
       }
-    } catch (error) {
-      console.error("Failed to delete users:", error);
-    }
+    } catch (error) {}
   }
 
   let showDeleteConfirm = false;

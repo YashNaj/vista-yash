@@ -18,24 +18,18 @@
   let showDeleteConfirm = false;
   async function confirmDelete() {
     try {
-      // Get the user ID from the exported `user` variable
       const userId = user.id;
 
-      // Delete the user using the `deleteUser` function
       const [deletedUser, deleteError] = await deleteUser(userId);
 
       if (deleteError) {
         console.error("Error deleting user:", deleteError);
-        // Handle the error, e.g., display an error message to the user
         return;
       }
 
-      // Redirect the user to a relevant page after successful deletion
-      // For example, you could redirect to the home page or a list of users
       window.location.href = "/";
     } catch (error) {
       console.error("Error deleting user:", error);
-      // Handle the error, e.g., display an error message to the user
     }
   }
 </script>

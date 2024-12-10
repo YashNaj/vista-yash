@@ -37,10 +37,8 @@ export const load = async ({ params }) => {
 
 export const actions: Actions = {
   edit: async (event) => {
-    console.log("reaching action");
     const updateForm = await superValidate(event, zod(updateUserSchema));
     const id = parseInt(event.params.id);
-    console.log(updateForm);
     if (!updateForm.valid) {
       return fail(400, {
         updateForm,
@@ -56,7 +54,6 @@ export const actions: Actions = {
     }
 
     if (updateError) {
-      console.log(updateError);
       return fail(400, {
         updateForm,
       });
@@ -67,11 +64,9 @@ export const actions: Actions = {
     };
   },
   addPost: async (event) => {
-    console.log("reaching action");
     const createPostForm = await superValidate(event, zod(createPostSchema));
     const id = parseInt(event.params.id);
     createPostForm.data.authorId = id;
-    console.log(createPostForm);
     if (!createPostForm.valid) {
       return fail(400, {
         createPostForm,
@@ -89,7 +84,6 @@ export const actions: Actions = {
     }
 
     if (postError) {
-      console.log(postError);
       return fail(400, {
         createPostForm,
       });

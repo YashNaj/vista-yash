@@ -14,7 +14,6 @@ export const load = async ({ params }) => {
     throw error(500, "Error fetching post");
   }
 
-  console.log(post);
   return {
     post,
     updateForm: await superValidate(zod(updatePostSchema)),
@@ -23,10 +22,8 @@ export const load = async ({ params }) => {
 
 export const actions = {
   edit: async (event: import('./$types').RequestEvent) => {
-    console.log("reaching action");
     const updateForm = await superValidate(event, zod(updatePostSchema));
     const id = parseInt(event.params.id);
-    console.log(updateForm);
     if (!updateForm.valid) {
       return fail(400, {
         updateForm,
@@ -43,7 +40,6 @@ export const actions = {
     }
 
     if (updateError) {
-      console.log(updateError);
       return fail(400, {
         updateForm,
       });
