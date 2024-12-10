@@ -1,3 +1,4 @@
+// @ts-nocheck
 import prisma from "$lib/prisma";
 import { superValidate } from "sveltekit-superforms";
 import { createUserSchema } from "$lib/schemas/user";
@@ -17,8 +18,8 @@ export const load = async () => {
   return { posts, users, addForm: await superValidate(zod(createUserSchema)) };
 };
 
-export const actions: Actions = {
-  addUser: async (event) => {
+export const actions = {
+  addUser: async (event: import('./$types').RequestEvent) => {
     const addForm = await superValidate(event, zod(createUserSchema));
 
     if (!addForm.valid) {
@@ -48,3 +49,4 @@ export const actions: Actions = {
     };
   },
 };
+;null as any as Actions;

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const CreatePostSchema = z.object({
+export const createPostSchema = z.object({
   title: z
     .string()
     .min(1, "Title is required")
@@ -13,16 +13,15 @@ export const CreatePostSchema = z.object({
   authorId: z.number().int().positive().optional(),
 });
 
-export const UpdatePostSchema = CreatePostSchema.partial();
+export const updatePostSchema = createPostSchema.partial();
 
-export const SearchPostSchema = z.object({
+export const searchPostSchema = z.object({
   query: z
     .string()
     .min(1, "Search query is required")
     .max(50, "Search query must be less than 50 characters"),
 });
 
-// Types derived from schemas
-export type CreatePostInput = z.infer<typeof CreatePostSchema>;
-export type UpdatePostInput = z.infer<typeof UpdatePostSchema>;
-export type SearchPostInput = z.infer<typeof SearchPostSchema>;
+export type CreatePostSchema = typeof createPostSchema;
+export type UpdatePostSchema = typeof updatePostSchema;
+export type SearchPostSchema = typeof searchPostSchema;

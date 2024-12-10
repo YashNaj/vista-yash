@@ -62,6 +62,7 @@ declare module '$env/static/private' {
 	export const npm_execpath: string;
 	export const npm_package_devDependencies_svelte: string;
 	export const nvm_current_version: string;
+	export const npm_package_devDependencies_formsnap: string;
 	export const npm_config_frozen_lockfile: string;
 	export const npm_package_devDependencies_sveltekit_superforms: string;
 	export const PATH: string;
@@ -182,6 +183,7 @@ declare module '$env/dynamic/private' {
 		npm_execpath: string;
 		npm_package_devDependencies_svelte: string;
 		nvm_current_version: string;
+		npm_package_devDependencies_formsnap: string;
 		npm_config_frozen_lockfile: string;
 		npm_package_devDependencies_sveltekit_superforms: string;
 		PATH: string;

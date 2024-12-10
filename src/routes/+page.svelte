@@ -19,7 +19,7 @@
           Users
         </h2>
         <div class="btn-wrapper w-fit h-full py-2 rounded">
-          <AddUser />
+          <AddUser data={data.addForm} />
         </div>
       </div>
       <div class="flex-1 overflow-y-auto">
