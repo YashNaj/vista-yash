@@ -1,49 +1,37 @@
 import { error, fail, type Actions } from "@sveltejs/kit";
-import prisma from "$lib/prisma";
 import { superValidate } from "sveltekit-superforms";
 import { updatePostSchema } from "$lib/schemas/post";
 import { zod } from "sveltekit-superforms/adapters";
-import { updatePost } from "$lib/db";
+import { getPostById, updatePost } from "$lib/db";
 
 export const load = async ({ params }) => {
   let id = parseInt(params.id);
-  let post;
-  try {
-    post = await prisma.post.findUnique({
-      where: {
-        id,
-      },
-      include: {
-        author: true,
-      },
-    });
+  const [post, postError] = await getPostById(id, true);
 
-    if (!post) {
-      throw error(404, "Post not found");
-    }
-    const updateForm = superValidate(post, zod(updatePostSchema));
-
-    console.log(post);
-    return {
-      post,
-      updateForm,
-    };
-  } catch (e) {
-    console.error("Error fetching post:", e);
+  if (postError) {
+    console.error("Error fetching post:", postError);
     throw error(500, "Error fetching post");
   }
+
+  console.log(post);
+  return {
+    post,
+    updateForm: await superValidate(zod(updatePostSchema)),
+  };
 };
 
 export const actions: Actions = {
-  update: async (event) => {
+  edit: async (event) => {
+    console.log("reaching action");
     const updateForm = await superValidate(event, zod(updatePostSchema));
-    const id = parseInt(updateForm.data.id);
+    const id = parseInt(event.params.id);
+    console.log(updateForm);
     if (!updateForm.valid) {
       return fail(400, {
         updateForm,
       });
     }
-    const [update, updateError] = await updatePost({
+    const [update, updateError] = await updatePost(id, {
       title: updateForm.data.title,
       content: updateForm.data.content,
     });
@@ -54,6 +42,7 @@ export const actions: Actions = {
     }
 
     if (updateError) {
+      console.log(updateError);
       return fail(400, {
         updateForm,
       });

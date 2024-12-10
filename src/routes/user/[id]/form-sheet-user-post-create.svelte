@@ -2,7 +2,7 @@
   import * as Sheet from "$lib/components/ui/sheet";
   import * as Form from "$lib/components/ui/form";
   import { Input } from "$lib/components/ui/input";
-  import { createUserSchema, type CreateUserSchema } from "$lib/schemas/user";
+  import { createPostSchema, type CreatePostSchema } from "$lib/schemas/post";
   import { Loader2, Plus } from "lucide-svelte";
   import { fly } from "svelte/transition";
   import {
@@ -14,13 +14,15 @@
   import { invalidateAll } from "$app/navigation";
   import { Button } from "$lib/components/ui/button";
 
-  export let data: SuperValidated<Infer<CreateUserSchema>>;
+  export let data: SuperValidated<Infer<CreatePostSchema>>;
+  export let id;
 
   const form = superForm(data, {
-    validators: zodClient(createUserSchema),
+    validators: zodClient(createPostSchema),
     resetForm: true,
     delayMs: 500,
     timeoutMs: 8000,
+    invalidateAll: true,
   });
 
   const { form: formData, enhance, delayed, submitting } = form;
@@ -28,16 +30,16 @@
 </script>
 
 <Sheet.Root>
-  <Sheet.Trigger class="text-white w-fit px-4 rounded">
-    <Button variant="ghost" size="sm" class="text-blue-950 ml-2">
+  <Sheet.Trigger>
+    <Button variant="default" size="sm" class="text-white ml-2">
       <Plus class="h-4 w-4 mr-2" />
       Add
     </Button>
   </Sheet.Trigger>
+
   <Sheet.Content class="pt-20">
     <Sheet.Header>
-      <Sheet.Title>Add a User</Sheet.Title>
-      <Sheet.Description>Add a new Vista Metals user.</Sheet.Description>
+      <Sheet.Title>Create a new post for this user</Sheet.Title>
     </Sheet.Header>
 
     {#if showSuccess}
@@ -46,13 +48,13 @@
         in:fly={{ duration: 500 }}
         out:fly={{ duration: 400, delay: 600 }}
       >
-        User successfully added!
+        Succesfully edited user.
       </div>
     {/if}
 
     <form
-      action="?/addUser"
       method="POST"
+      action="?/addPost"
       use:enhance={({ formData }) => {
         return async ({ result }) => {
           if (result.type === "success") {
@@ -64,21 +66,19 @@
       }}
       class="w-full h-full pt-2"
     >
-      <Form.Field {form} name="email">
+      <Form.Field {form} name="title">
         <Form.Control let:attrs>
-          <Form.Label>Email</Form.Label>
-          <Input {...attrs} bind:value={$formData.email} />
+          <Form.Label>Title</Form.Label>
+          <Input {...attrs} bind:value={$formData.title} />
         </Form.Control>
-        <Form.Description>Use a valid email.</Form.Description>
         <Form.FieldErrors />
       </Form.Field>
 
-      <Form.Field {form} name="name">
+      <Form.Field {form} name="content">
         <Form.Control let:attrs>
-          <Form.Label>Name</Form.Label>
-          <Input {...attrs} bind:value={$formData.name} />
+          <Form.Label>Content</Form.Label>
+          <Input {...attrs} bind:value={$formData.content} />
         </Form.Control>
-        <Form.Description>This is your public display name.</Form.Description>
         <Form.FieldErrors />
       </Form.Field>
 
@@ -90,7 +90,7 @@
           {#if $delayed}
             <Loader2 class="h-4 w-4 animate-spin absolute left-4" />
           {/if}
-          {$delayed ? "Adding User..." : "Submit"}
+          {$delayed ? "Updating..." : "Submit"}
         </Form.Button>
       </div>
     </form>

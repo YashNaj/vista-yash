@@ -3,8 +3,8 @@
   import * as Form from "$lib/components/ui/form";
   import { Input } from "$lib/components/ui/input";
   import { updatePostSchema, type UpdatePostSchema } from "$lib/schemas/post";
-  import { Loader2 } from "lucide-svelte";
-  import { fade, fly } from "svelte/transition";
+  import { Edit2, Loader2 } from "lucide-svelte";
+  import { fly } from "svelte/transition";
   import {
     type SuperValidated,
     type Infer,
@@ -12,8 +12,10 @@
   } from "sveltekit-superforms";
   import { zodClient } from "sveltekit-superforms/adapters";
   import { invalidateAll } from "$app/navigation";
+  import { Button } from "$lib/components/ui/button";
 
   export let data: SuperValidated<Infer<UpdatePostSchema>>;
+  export let id;
 
   const form = superForm(data, {
     validators: zodClient(updatePostSchema),
@@ -27,8 +29,11 @@
 </script>
 
 <Sheet.Root>
-  <Sheet.Trigger class="bg-blue-950 btn text-white w-fit px-4 rounded">
-    Edit
+  <Sheet.Trigger class="h-full flex flex-col justify-start items-end">
+    <Button variant="ghost" size="sm" class="ml-2">
+      <Edit2 class="h-4 w-4 mr-2" />
+      Edit
+    </Button>
   </Sheet.Trigger>
 
   <Sheet.Content class="pt-20">
@@ -47,8 +52,8 @@
     {/if}
 
     <form
-      action="?/addUser"
       method="POST"
+      action="?/edit"
       use:enhance={({ formData }) => {
         return async ({ result }) => {
           if (result.type === "success") {
@@ -60,9 +65,9 @@
       }}
       class="w-full h-full pt-2"
     >
-      <Form.Field {form} title="email">
+      <Form.Field {form} name="title">
         <Form.Control let:attrs>
-          <Form.Label>Email</Form.Label>
+          <Form.Label>Title</Form.Label>
           <Input {...attrs} bind:value={$formData.title} />
         </Form.Control>
         <Form.Description>Title of the post.</Form.Description>
@@ -71,7 +76,7 @@
 
       <Form.Field {form} name="content">
         <Form.Control let:attrs>
-          <Form.Label>Name</Form.Label>
+          <Form.Label>Content</Form.Label>
           <Input {...attrs} bind:value={$formData.content} />
         </Form.Control>
         <Form.FieldErrors />
@@ -85,7 +90,7 @@
           {#if $delayed}
             <Loader2 class="h-4 w-4 animate-spin absolute left-4" />
           {/if}
-          {$delayed ? "Adding User..." : "Submit"}
+          {$delayed ? "Updating..." : "Submit"}
         </Form.Button>
       </div>
     </form>

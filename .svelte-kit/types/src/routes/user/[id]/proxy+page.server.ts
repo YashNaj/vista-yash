@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { error, fail, type Actions } from "@sveltejs/kit";
 import prisma from "$lib/prisma";
 import { createPost, updateUser } from "$lib/db";
@@ -35,8 +36,8 @@ export const load = async ({ params }) => {
   }
 };
 
-export const actions: Actions = {
-  edit: async (event) => {
+export const actions = {
+  edit: async (event: import('./$types').RequestEvent) => {
     console.log("reaching action");
     const updateForm = await superValidate(event, zod(updateUserSchema));
     const id = parseInt(event.params.id);
@@ -66,7 +67,7 @@ export const actions: Actions = {
       updateForm,
     };
   },
-  addPost: async (event) => {
+  addPost: async (event: import('./$types').RequestEvent) => {
     console.log("reaching action");
     const createPostForm = await superValidate(event, zod(createPostSchema));
     const id = parseInt(event.params.id);
@@ -99,5 +100,6 @@ export const actions: Actions = {
       createPostForm,
     };
   },
-  delete: async (event) => { },
+  delete: async (event: import('./$types').RequestEvent) => { },
 };
+;null as any as Actions;

@@ -32,8 +32,8 @@ declare module '$env/static/private' {
 	export const NODE: string;
 	export const npm_package_devDependencies_typescript: string;
 	export const INIT_CWD: string;
-	export const TERM: string;
 	export const SHELL: string;
+	export const TERM: string;
 	export const npm_package_devDependencies_vite: string;
 	export const MYVIMRC: string;
 	export const OMF_CONFIG: string;
@@ -61,7 +61,6 @@ declare module '$env/static/private' {
 	export const TERM_FEATURES: string;
 	export const npm_execpath: string;
 	export const npm_package_devDependencies_svelte: string;
-	export const nvm_current_version: string;
 	export const npm_package_devDependencies_formsnap: string;
 	export const npm_config_frozen_lockfile: string;
 	export const npm_package_devDependencies_sveltekit_superforms: string;
@@ -87,7 +86,6 @@ declare module '$env/static/private' {
 	export const npm_package_scripts_build: string;
 	export const XPC_FLAGS: string;
 	export const npm_package_devDependencies_tailwind_merge: string;
-	export const MASON: string;
 	export const NVIM: string;
 	export const npm_config_node_gyp: string;
 	export const XPC_SERVICE_NAME: string;
@@ -153,8 +151,8 @@ declare module '$env/dynamic/private' {
 		NODE: string;
 		npm_package_devDependencies_typescript: string;
 		INIT_CWD: string;
-		TERM: string;
 		SHELL: string;
+		TERM: string;
 		npm_package_devDependencies_vite: string;
 		MYVIMRC: string;
 		OMF_CONFIG: string;
@@ -182,7 +180,6 @@ declare module '$env/dynamic/private' {
 		TERM_FEATURES: string;
 		npm_execpath: string;
 		npm_package_devDependencies_svelte: string;
-		nvm_current_version: string;
 		npm_package_devDependencies_formsnap: string;
 		npm_config_frozen_lockfile: string;
 		npm_package_devDependencies_sveltekit_superforms: string;
@@ -208,7 +205,6 @@ declare module '$env/dynamic/private' {
 		npm_package_scripts_build: string;
 		XPC_FLAGS: string;
 		npm_package_devDependencies_tailwind_merge: string;
-		MASON: string;
 		NVIM: string;
 		npm_config_node_gyp: string;
 		XPC_SERVICE_NAME: string;

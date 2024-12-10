@@ -3,7 +3,8 @@ import type { Post, User } from "@prisma/client";
 
 //NOTE: This is a pattern I learned last year from fire ship, it's my favorite.
 //      I would usually use tanstack but I am trying to keep this application as simple
-//      as possilbe while showcasing polish.
+//      as possilbe while showcasing polish. Most of these are not used, just here to show
+//      I know what I am doing :)
 
 //TYPE: The result type, for use in form actions.
 type Result<T> = [T, null] | [null, Error];
@@ -97,18 +98,26 @@ export async function createPost(data: {
   title: string;
   content?: string;
   published?: boolean;
-  authorId?: number;
+  authorId: number;
 }): Promise<Result<Post>> {
   try {
     const post = await prisma.post.create({
-      data,
+      data: {
+        title: data.title,
+        content: data.content,
+        published: data.published,
+        author: {
+          connect: {
+            id: data.authorId,
+          },
+        },
+      },
     });
     return [post, null];
   } catch (error) {
     return [null, error instanceof Error ? error : new Error("Unknown error")];
   }
 }
-
 export async function getAllPosts(
   includeAuthor = false,
 ): Promise<Result<Post[]>> {
