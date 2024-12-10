@@ -27,7 +27,9 @@
         </div>
       </div>
     </div>
-    <h2 class="mt-3 md:text-right">By {author.name}</h2>
+    {#if author}
+      <h2 class="mt-3 md:text-right">By {author.name}</h2>
+    {/if}
     <h2 class="mt-1 md:text-right">
       {dayjs(post.createdOn).format("MM/DD/YYYY")}
     </h2>

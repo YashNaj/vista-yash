@@ -11,6 +11,7 @@ export const createPostSchema = z.object({
     .max(10000, "Content must be less than 10000 characters"),
   published: z.boolean().default(false),
   authorId: z.number().int().positive().optional(),
+  id: z.string().optional(),
 });
 
 export const updatePostSchema = createPostSchema.partial();

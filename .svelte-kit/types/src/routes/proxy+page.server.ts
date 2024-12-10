@@ -6,6 +6,7 @@ import { zod } from "sveltekit-superforms/adapters";
 import type { Actions } from "@sveltejs/kit";
 import { fail } from "@sveltejs/kit";
 import { createUser } from "$lib/db";
+import { json } from "@sveltejs/kit";
 
 export const load = async () => {
   const posts = await prisma.post.findMany({
@@ -47,6 +48,34 @@ export const actions = {
     return {
       addForm,
     };
+  },
+  deleteUsers: async ({ request }: import('./$types').RequestEvent) => {
+    const formData = await request.formData();
+    const ids = formData.get("ids")?.toString().split(",").map(Number);
+    console.log(ids);
+    if (!ids || !ids.length) {
+      return fail(400, {
+        success: false,
+        message: "No users selected",
+      });
+    }
+
+    try {
+      await prisma.user.deleteMany({
+        where: {
+          id: {
+            in: ids,
+          },
+        },
+      });
+
+      return { success: true };
+    } catch (error) {
+      return fail(500, {
+        success: false,
+        message: "Failed to delete users",
+      });
+    }
   },
 };
 ;null as any as Actions;

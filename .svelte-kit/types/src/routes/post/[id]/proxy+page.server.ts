@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { error, fail, type Actions } from "@sveltejs/kit";
 import prisma from "$lib/prisma";
 import { superValidate } from "sveltekit-superforms";
@@ -34,8 +35,8 @@ export const load = async ({ params }) => {
   }
 };
 
-export const actions: Actions = {
-  update: async (event) => {
+export const actions = {
+  update: async (event: import('./$types').RequestEvent) => {
     const updateForm = await superValidate(event, zod(updatePostSchema));
     const id = parseInt(updateForm.data.id);
     if (!updateForm.valid) {
@@ -64,3 +65,4 @@ export const actions: Actions = {
     };
   },
 };
+;null as any as Actions;
