@@ -66,6 +66,7 @@ declare module '$env/static/private' {
 	export const npm_package_devDependencies_sveltekit_superforms: string;
 	export const PATH: string;
 	export const TERMINFO_DIRS: string;
+	export const npm_package_devDependencies_bits_ui: string;
 	export const LaunchInstanceID: string;
 	export const npm_config_engine_strict: string;
 	export const __CFBundleIdentifier: string;
@@ -74,6 +75,7 @@ declare module '$env/static/private' {
 	export const npm_package_devDependencies_tailwindcss: string;
 	export const npm_command: string;
 	export const npm_package_scripts_preview: string;
+	export const npm_package_devDependencies_lucide_svelte: string;
 	export const npm_lifecycle_event: string;
 	export const LANG: string;
 	export const npm_package_name: string;
@@ -184,6 +186,7 @@ declare module '$env/dynamic/private' {
 		npm_package_devDependencies_sveltekit_superforms: string;
 		PATH: string;
 		TERMINFO_DIRS: string;
+		npm_package_devDependencies_bits_ui: string;
 		LaunchInstanceID: string;
 		npm_config_engine_strict: string;
 		__CFBundleIdentifier: string;
@@ -192,6 +195,7 @@ declare module '$env/dynamic/private' {
 		npm_package_devDependencies_tailwindcss: string;
 		npm_command: string;
 		npm_package_scripts_preview: string;
+		npm_package_devDependencies_lucide_svelte: string;
 		npm_lifecycle_event: string;
 		LANG: string;
 		npm_package_name: string;

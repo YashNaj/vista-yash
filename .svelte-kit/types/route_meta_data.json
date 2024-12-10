@@ -1,5 +1,11 @@
 {
 	"/": [
 		"src/routes/+page.server.ts"
+	],
+	"/post/[id]": [
+		"src/routes/post/[id]/+page.server.ts"
+	],
+	"/user/[id]": [
+		"src/routes/user/[id]/+page.server.ts"
 	]
 }

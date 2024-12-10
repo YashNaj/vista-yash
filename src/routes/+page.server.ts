@@ -10,3 +10,7 @@ export const load = async () => {
 
   return { posts, users };
 };
+
+export const actions = {
+  default: async ({ }) => { },
+};

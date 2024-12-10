@@ -1,8 +1,14 @@
 <script lang="ts">
   import type { User } from "@prisma/client";
-  import { createTable, Render, Subscribe } from "svelte-headless-table";
+  import {
+    createTable,
+    Render,
+    Subscribe,
+    createRender,
+  } from "svelte-headless-table";
   import { readable } from "svelte/store";
   import * as Table from "$lib/components/ui/table";
+  import DataTableActions from "./user-data-actions.svelte";
 
   export let data: User[];
 
@@ -20,6 +26,10 @@
     table.column({
       accessor: ({ id }) => id,
       header: "",
+      cell: ({ value }) => {
+        value = parseInt(value);
+        return createRender(DataTableActions, { id: value });
+      },
     }),
   ]);
   const { headerRows, pageRows, tableAttrs, tableBodyAttrs } =
@@ -46,10 +56,10 @@
     <Table.Body {...$tableBodyAttrs} class="overflow-y-auto">
       {#each $pageRows as row (row.id)}
         <Subscribe rowAttrs={row.attrs()} let:rowAttrs>
-          <Table.Row {...rowAttrs}>
+          <Table.Row {...rowAttrs} class="cursor-pointer">
             {#each row.cells as cell (cell.id)}
               <Subscribe attrs={cell.attrs()} let:attrs>
-                <Table.Cell {...attrs}>
+                <Table.Cell class="cursor-pointer" {...attrs}>
                   <Render of={cell.render()} />
                 </Table.Cell>
               </Subscribe>
